@@ -103,6 +103,7 @@ All of the properties listed below can also be added to enable/disable any extra
 | `startWithAudioMuted` | boolean  | This forces the mic to be muted for every person entering the meeting.            |
 | `startWithVideoMuted` | boolean  | This forces the camera to be disabled for every person entering the meeting.      |
 | `disableInitialGUM`   | boolean  | Skips the initial permission check and configuration screen (GUM = getUserMedia). |
+| `meetingLocation`     | string   | Configure the location text for the meeting.                                      |
 
 > Note that configuration is entirely optional and that Jitsi's default configuration will be used as a default if no configuration file is found in the project. The add-in will default to https://meet.jit.si if no configuration file is found.
 
