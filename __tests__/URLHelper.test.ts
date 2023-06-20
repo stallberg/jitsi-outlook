@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import Config, { defaultMeetJitsiUrl } from "../src/models/Config";
-import { getRandomRoomName, getConfigUrl, getJitsiUrl } from "../src/utils/URLHelper";
+import { getRandomRoomName, getConfigUrl, getJitsiUrl, extractRoomNameFromJitsiUrl, extractHostnameFromJistiUrl } from "../src/utils/URLHelper";
 
 describe("getRandomRoomName", () => {
   it("should return a string of length 16", () => {
@@ -57,5 +57,25 @@ describe("getJitsiUrl", () => {
     const jitsiUrl = getJitsiUrl(config);
     expect(jitsiUrl).toContain(config.baseUrl);
     expect(jitsiUrl).toContain(getConfigUrl(config));
+  });
+});
+
+describe("extractRoomNameFromJitsiUrl", () => {
+  it("should extract jitsi room name from jitsi url", () => {
+    const roomName = "customRoom";
+    const jitsiUrl = `https://my-custom-base-url.com/${roomName}`;
+    expect(extractRoomNameFromJitsiUrl(jitsiUrl)).toBe(roomName);
+  });
+});
+
+describe("extractHostnameFromJistiUrl", () => {
+  it("should extract hostname from jitsi url", () => {
+    const hostname = "my-custom-base-url.com";
+    const config: Config = {
+      baseUrl: `https://${hostname}/`,
+    };
+    const jitsiUrl = getJitsiUrl(config);
+
+    expect(extractHostnameFromJistiUrl(jitsiUrl)).toBe(hostname);
   });
 });
