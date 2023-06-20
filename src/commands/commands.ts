@@ -31,7 +31,7 @@ const setData = (str: string, event: Office.AddinCommands.Event) => {
 const addJitsiLink = (event: Office.AddinCommands.Event) => {
   const config = configJson as Config;
 
-  Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, (result) => {
+  Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, async (result) => {
     if (result.error) {
       event.completed();
     }
@@ -39,7 +39,7 @@ const addJitsiLink = (event: Office.AddinCommands.Event) => {
     try {
       const parser = new DOMParser();
       const htmlDoc = parser.parseFromString(result.value, "text/html");
-      const bodyDOM = bodyHasJitsiLink(result.value, config) ? overwriteJitsiLinkDiv(htmlDoc, config) : combineBodyWithJitsiDiv(result.value, config);
+      const bodyDOM = bodyHasJitsiLink(result.value, config) ? await overwriteJitsiLinkDiv(htmlDoc, config) : await combineBodyWithJitsiDiv(result.value, config);
       setData(bodyDOM, event);
       // Update meeting location if configured
       if (config.meetingLocation) {

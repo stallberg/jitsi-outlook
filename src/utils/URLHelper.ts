@@ -29,3 +29,14 @@ export const getConfigUrl = (config: Config): string => {
 export const getJitsiUrl = (config: Config): string => {
   return (config.baseUrl ?? defaultMeetJitsiUrl) + getRandomRoomName() + getConfigUrl(config);
 };
+
+export const extractRoomNameFromJitsiUrl = (jitsiUrl: string): string => {
+  const url = new URL(jitsiUrl);
+  const paths = url.pathname.split("/");
+  return paths[1];
+};
+
+export const extractHostnameFromJistiUrl = (jitsiUrl: string): string => {
+  const url = new URL(jitsiUrl);
+  return url.hostname;
+};
