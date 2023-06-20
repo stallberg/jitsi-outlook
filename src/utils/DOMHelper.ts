@@ -5,14 +5,15 @@
 import getLocalizedStrings from "../localization";
 import Config, { defaultMeetJitsiUrl } from "../models/Config";
 import { videoCameraURI } from "./IconHelper";
+import { getConferencePin, getNumbersForCalling } from "./SIPHelper";
 import { getJitsiUrl } from "./URLHelper";
 
 const DIV_ID_JITSI = "jitsi-link";
 
-export const combineBodyWithJitsiDiv = (body: string, config: Config): string => {
+export const combineBodyWithJitsiDiv = async (body: string, config: Config): Promise<string> => {
   const jitsiUrl = getJitsiUrl(config);
 
-  const linkDOM = getJitsiLinkDiv(jitsiUrl, config);
+  const linkDOM = await getJitsiLinkDiv(jitsiUrl, config);
   const parser = new DOMParser();
 
   const bodyString = `
@@ -31,18 +32,18 @@ export const bodyHasJitsiLink = (body: string, config: Config): boolean => {
   return urlRegex.test(body);
 };
 
-export const overwriteJitsiLinkDiv = (body: Document, config: Config): string => {
+export const overwriteJitsiLinkDiv = async (body: Document, config: Config): Promise<string> => {
   const jitsiUrl = getJitsiUrl(config);
 
   const jitsiLink = body.querySelector(`[id*="${DIV_ID_JITSI}"]`);
-  const newJitsiLink = getJitsiLinkDiv(jitsiUrl, config);
+  const newJitsiLink = await getJitsiLinkDiv(jitsiUrl, config);
   jitsiLink.outerHTML = newJitsiLink;
 
   const updatedHtmlString = body.body.innerHTML;
   return updatedHtmlString;
 };
 
-export const getJitsiLinkDiv = (jitsiUrl: string, config: Config): string => {
+export const getJitsiLinkDiv = async (jitsiUrl: string, config: Config) => {
   const localizedStrings = getLocalizedStrings();
 
   const tdStyles = "padding-right: 10px; vertical-align: middle; background-color: transparent;";
@@ -75,6 +76,24 @@ export const getJitsiLinkDiv = (jitsiUrl: string, config: Config): string => {
             </tr>
         </table>
         <br />
+        ${
+          config.enableSipPhoneIntegration && config.sipPhoneNumbersUrl
+            ? `
+            <span style="font-size: 14px; font-weight: 700;">
+              ${localizedStrings.connectWithPhone}
+            </span>
+            <br />
+            <span style="font-size: 12px;">
+              ${localizedStrings.phoneNumber}: ${await getNumbersForCalling(config)}
+            </span>
+            <br />
+            <span style="font-size: 12px;">
+              ${localizedStrings.conferencePin}: ${await getConferencePin(jitsiUrl)}
+            </span>
+            <br />
+            `
+            : ""
+        }
         ${
           config.additionalText
             ? `
