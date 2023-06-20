@@ -11,6 +11,8 @@ interface Config {
     startWithAudioMuted?: boolean;
     startWithVideoMuted?: boolean;
   };
+  enableSipPhoneIntegration?: boolean;
+  sipPhoneNumbersUrl?: string;
 }
 
 export default Config;

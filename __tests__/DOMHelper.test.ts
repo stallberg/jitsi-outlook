@@ -8,40 +8,54 @@ import { bodyHasJitsiLink, getJitsiLinkDiv, overwriteJitsiLinkDiv } from "../src
 import * as URLHelper from "../src/utils/URLHelper";
 
 describe("getJitsiLinkDOM", () => {
-  it("should return a string that contains the correct Jitsi URL", () => {
+  it("should return a string that contains the correct Jitsi URL", async () => {
     const config: Config = {};
     const jitsiUrl = URLHelper.getJitsiUrl(config);
-    const jitsiLinkDOM = getJitsiLinkDiv(jitsiUrl, config);
+    const jitsiLinkDOM = await getJitsiLinkDiv(jitsiUrl, config);
 
     expect(jitsiLinkDOM).toContain(jitsiUrl);
   });
 
-  it("should return a string that contains the localized strings", () => {
+  it("should return a string that contains the localized strings", async () => {
     const config: Config = {};
     const jitsiUrl = URLHelper.getJitsiUrl(config);
-    const jitsiLinkDOM = getJitsiLinkDiv(jitsiUrl, config);
+    const jitsiLinkDOM = await getJitsiLinkDiv(jitsiUrl, config);
     const localizedStrings = getLocalizedStrings();
 
     expect(jitsiLinkDOM).toContain(localizedStrings.linkToMeeting);
     expect(jitsiLinkDOM).toContain(localizedStrings.connectToMeeting);
   });
 
-  it("should include the additionalText if provided in config", () => {
+  it("should include the additionalText if provided in config", async () => {
     const config: Config = {
       additionalText: "This is additional text",
     };
     const jitsiUrl = URLHelper.getJitsiUrl(config);
-    const jitsiLinkDOM = getJitsiLinkDiv(jitsiUrl, config);
+    const jitsiLinkDOM = await getJitsiLinkDiv(jitsiUrl, config);
 
     expect(jitsiLinkDOM).toContain(config.additionalText);
   });
 
-  it("should not include the additionalText if not provided in config", () => {
+  it("should not include the additionalText if not provided in config", async () => {
     const config: Config = {};
     const jitsiUrl = URLHelper.getJitsiUrl(config);
-    const jitsiLinkDOM = getJitsiLinkDiv(jitsiUrl, config);
+    const jitsiLinkDOM = await getJitsiLinkDiv(jitsiUrl, config);
 
     expect(jitsiLinkDOM).not.toContain("additionalText");
+  });
+
+  it("should not include the phone numbers and pin for call-in if not provided in config", async () => {
+    const config: Config = {
+      enableSipPhoneIntegration: false,
+      sipPhoneNumbersUrl: "https://www.test.com/numbers.php",
+    };
+    const jitsiUrl = URLHelper.getJitsiUrl(config);
+    const jitsiLinkDOM = await getJitsiLinkDiv(jitsiUrl, config);
+    const localizedStrings = getLocalizedStrings();
+
+    expect(jitsiLinkDOM).not.toContain(localizedStrings.connectWithPhone);
+    expect(jitsiLinkDOM).not.toContain(localizedStrings.phoneNumber);
+    expect(jitsiLinkDOM).not.toContain(localizedStrings.conferencePin);
   });
 });
 
@@ -71,7 +85,7 @@ describe("bodyHasJitsiLink", () => {
 });
 
 describe("overwriteJitsiLinkDiv", () => {
-  it("should replace the existing jisti div with a new one", () => {
+  it("should replace the existing jisti div with a new one", async () => {
     const config: Config = {
       baseUrl: "https://meet.jit.si",
     };
@@ -91,7 +105,7 @@ describe("overwriteJitsiLinkDiv", () => {
     const body = new DOMParser().parseFromString(dom, "text/html");
     expect(body.body.innerHTML).toContain(oldRoomName);
 
-    const result = overwriteJitsiLinkDiv(body, config);
+    const result = await overwriteJitsiLinkDiv(body, config);
     expect(result).toContain(newRoomName);
     expect(result).not.toContain(oldRoomName);
   });
