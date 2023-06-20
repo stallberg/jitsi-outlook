@@ -106,6 +106,7 @@ All of the properties listed below can also be added to enable/disable any extra
 | `meetingLocation`           | string   | Configure the location text for the meeting.                                      |
 | `enableSipPhoneIntegration` | boolean  | This adds phone call-in instructions to the meeting invite.                       |
 | `sipPhoneNumbersUrl`        | string   | The URL that returns the phone number(s) for calling in to the meeting.           |
+| `sipConferenceMapperUrl`    | string   | The URL for your self-hosted conference mapper API                                |
 
 > Note that configuration is entirely optional and that Jitsi's default configuration will be used as a default if no configuration file is found in the project. The add-in will default to https://meet.jit.si if no configuration file is found.
 

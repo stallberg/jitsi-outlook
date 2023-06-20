@@ -88,7 +88,7 @@ export const getJitsiLinkDiv = async (jitsiUrl: string, config: Config) => {
             </span>
             <br />
             <span style="font-size: 12px;">
-              ${localizedStrings.conferencePin}: ${await getConferencePin(jitsiUrl)}
+              ${localizedStrings.conferencePin}: ${await getConferencePin(jitsiUrl, config)}
             </span>
             <br />
             `
