@@ -11,6 +11,7 @@ interface Config {
     startWithAudioMuted?: boolean;
     startWithVideoMuted?: boolean;
   };
+  meetingLocation?: string;
   enableSipPhoneIntegration?: boolean;
   sipPhoneNumbersUrl?: string;
 }

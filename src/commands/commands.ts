@@ -10,6 +10,12 @@ import { bodyHasJitsiLink, combineBodyWithJitsiDiv, overwriteJitsiLinkDiv } from
 
 Office.initialize = function () {};
 
+const setMeetingLocation = (location: string, event: Office.AddinCommands.Event) => {
+  Office.context.mailbox.item.location.setAsync(location, {}, () => {
+    event.completed();
+  });
+};
+
 const setData = (str: string, event: Office.AddinCommands.Event) => {
   Office.context.mailbox.item.body.setAsync(
     str,
@@ -35,6 +41,10 @@ const addJitsiLink = (event: Office.AddinCommands.Event) => {
       const htmlDoc = parser.parseFromString(result.value, "text/html");
       const bodyDOM = bodyHasJitsiLink(result.value, config) ? await overwriteJitsiLinkDiv(htmlDoc, config) : await combineBodyWithJitsiDiv(result.value, config);
       setData(bodyDOM, event);
+      // Update meeting location if configured
+      if (config.meetingLocation) {
+        setMeetingLocation(config.meetingLocation, event);
+      }
     } catch (error) {
       // If it fails to manipulate the DOM with a new link it will fallback to its original state
       setData(result.value, event);

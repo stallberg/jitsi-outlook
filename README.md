@@ -103,6 +103,7 @@ All of the properties listed below can also be added to enable/disable any extra
 | `startWithAudioMuted`       | boolean  | This forces the mic to be muted for every person entering the meeting.            |
 | `startWithVideoMuted`       | boolean  | This forces the camera to be disabled for every person entering the meeting.      |
 | `disableInitialGUM`         | boolean  | Skips the initial permission check and configuration screen (GUM = getUserMedia). |
+| `meetingLocation`           | string   | Configure the location text for the meeting.                                      |
 | `enableSipPhoneIntegration` | boolean  | This adds phone call-in instructions to the meeting invite.                       |
 | `sipPhoneNumbersUrl`        | string   | The URL that returns the phone number(s) for calling in to the meeting.           |
 
