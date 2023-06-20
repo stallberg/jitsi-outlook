@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 export const defaultMeetJitsiUrl = "https://meet.jit.si/";
+export const defaultConferenceMapperUrl = "https://jitsi-api.jitsi.net/conferenceMapper";
 
 interface Config {
   baseUrl?: string;
@@ -14,6 +15,7 @@ interface Config {
   meetingLocation?: string;
   enableSipPhoneIntegration?: boolean;
   sipPhoneNumbersUrl?: string;
+  sipConferenceMapperUrl?: string;
 }
 
 export default Config;

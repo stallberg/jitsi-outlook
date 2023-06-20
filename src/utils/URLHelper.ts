@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-import Config, { defaultMeetJitsiUrl } from "../models/Config";
+import Config, { defaultConferenceMapperUrl, defaultMeetJitsiUrl } from "../models/Config";
 
 export const getRandomRoomName = (): string => {
   var randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -39,4 +39,8 @@ export const extractRoomNameFromJitsiUrl = (jitsiUrl: string): string => {
 export const extractHostnameFromJistiUrl = (jitsiUrl: string): string => {
   const url = new URL(jitsiUrl);
   return url.hostname;
+};
+
+export const getConferenceMapperUrl = (config: Config): string => {
+  return config.sipConferenceMapperUrl ?? defaultConferenceMapperUrl;
 };

@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: MIT
 
-import Config, { defaultMeetJitsiUrl } from "../src/models/Config";
-import { getRandomRoomName, getConfigUrl, getJitsiUrl, extractRoomNameFromJitsiUrl, extractHostnameFromJistiUrl } from "../src/utils/URLHelper";
+import Config, { defaultConferenceMapperUrl, defaultMeetJitsiUrl } from "../src/models/Config";
+import { getRandomRoomName, getConfigUrl, getJitsiUrl, extractRoomNameFromJitsiUrl, extractHostnameFromJistiUrl, getConferenceMapperUrl } from "../src/utils/URLHelper";
 
 describe("getRandomRoomName", () => {
   it("should return a string of length 16", () => {
@@ -77,5 +77,19 @@ describe("extractHostnameFromJistiUrl", () => {
     const jitsiUrl = getJitsiUrl(config);
 
     expect(extractHostnameFromJistiUrl(jitsiUrl)).toBe(hostname);
+  });
+});
+
+describe("getConferenceMapperUrl", () => {
+  it("should return default conference mapper URL", () => {
+    const config: Config = {};
+    expect(getConferenceMapperUrl(config)).toBe(defaultConferenceMapperUrl);
+  });
+
+  it("should return custom conference mapper URL if specified in config", () => {
+    const config: Config = {
+      sipConferenceMapperUrl: "https://api.test.com/conferenceMapper",
+    };
+    expect(getConferenceMapperUrl(config)).toBe(config.sipConferenceMapperUrl);
   });
 });

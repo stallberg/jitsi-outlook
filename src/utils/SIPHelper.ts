@@ -1,6 +1,6 @@
 import Config from "../models/Config";
 import { Numbers, Pin } from "../models/SIP";
-import { extractHostnameFromJistiUrl, extractRoomNameFromJitsiUrl } from "./URLHelper";
+import { extractHostnameFromJistiUrl, extractRoomNameFromJitsiUrl, getConferenceMapperUrl } from "./URLHelper";
 
 export const getNumbersForCalling = async (config: Config) => {
   const res = await fetch(config.sipPhoneNumbersUrl);
@@ -8,10 +8,11 @@ export const getNumbersForCalling = async (config: Config) => {
   return data.numbers.Sweden;
 };
 
-export const getConferencePin = async (jitsiUrl: string) => {
+export const getConferencePin = async (jitsiUrl: string, config: Config) => {
   const room = extractRoomNameFromJitsiUrl(jitsiUrl);
   const hostname = extractHostnameFromJistiUrl(jitsiUrl);
-  const res = await fetch(`https://jitsi-api.jitsi.net/conferenceMapper?conference=${room}@${hostname}`);
+  const conferenceMapperUrl = getConferenceMapperUrl(config);
+  const res = await fetch(`${conferenceMapperUrl}?conference=${room}@${hostname}`);
   const data: Pin = await res.json();
   return data.id;
 };
