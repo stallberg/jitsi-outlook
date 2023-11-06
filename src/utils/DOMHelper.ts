@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import getLocalizedStrings from "../localization";
-import Config, { defaultMeetJitsiUrl } from "../models/Config";
+import Config, { defaultFontFamily, defaultMeetJitsiUrl } from "../models/Config";
 import { videoCameraURI } from "./IconHelper";
 import { getConferencePin, getNumbersForCalling } from "./SIPHelper";
 import { getJitsiUrl } from "./URLHelper";
@@ -47,9 +47,10 @@ export const getJitsiLinkDiv = async (jitsiUrl: string, config: Config) => {
   const localizedStrings = getLocalizedStrings();
 
   const tdStyles = "padding-right: 10px; vertical-align: middle; background-color: transparent;";
+  const fontFamily = config.fontFamily ?? defaultFontFamily;
 
   return `
-    <div id="${DIV_ID_JITSI}" style="font-family: 'Arial';">
+    <div id="${DIV_ID_JITSI}" style="font-family: '${fontFamily}';">
         <span style="font-size: 14px; font-weight: 700;">
             ${localizedStrings.connectToMeeting}
         </span>
