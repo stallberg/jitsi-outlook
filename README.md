@@ -1,6 +1,8 @@
 # **Jitsi Outlook add-in**
 
 [![Unit Tests](https://github.com/diggsweden/jitsi-outlook/actions/workflows/webpack.yml/badge.svg)](https://github.com/diggsweden/jitsi-outlook/actions/workflows/webpack.yml)
+[![Standard commitment](https://github.com/publiccodenet/standard/blob/develop/assets/standard-for-public-code-commitment.svg)](https://github.com/diggsweden/jitsi-outlook/blob/main/CONTRIBUTING.adoc#standard-for-public-code)
+[![REUSE status](https://api.reuse.software/badge/github.com/diggsweden/jitsi-outlook)](https://api.reuse.software/info/github.com/diggsweden/jitsi-outlook)
 
 The purpose of this plug-in is to simplify the process of adding video conference links to meeting bookings. It is designed for users who value and require simplicity to complete their tasks quickly and intuitively. Therefore, it is important to preserve this simplicity as new features are added. Any additional contributions to the software must be designed in a way that does not interfere with or complicate the core functionality of booking a regular meeting with just one click.
 
@@ -90,7 +92,7 @@ The add-in can be configured through the use of a configuration file (named `con
 ```
 {
     "baseUrl": "https://my-jitsi-instance-url",
-    "additionalText": "Some additional text beneath the signature",
+    "additionalText": "Some additional text beneath the signature"
 }
 ```
 
@@ -100,6 +102,7 @@ All of the properties listed below can also be added to enable/disable any extra
 | --------------------------- | -------- | --------------------------------------------------------------------------------- |
 | `baseUrl`                   | string   | Base url to your Jitsi instance.                                                  |
 | `additionalText`            | string   | This text will show up at the bottom of the email signature.                      |
+| `fontFamily`                | string   | The font family used for for the signature text (defaulting to Arial)             |
 | `startWithAudioMuted`       | boolean  | This forces the mic to be muted for every person entering the meeting.            |
 | `startWithVideoMuted`       | boolean  | This forces the camera to be disabled for every person entering the meeting.      |
 | `disableInitialGUM`         | boolean  | Skips the initial permission check and configuration screen (GUM = getUserMedia). |
@@ -136,4 +139,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) f
 
 ## Maintainers
 
-öSam
+asom

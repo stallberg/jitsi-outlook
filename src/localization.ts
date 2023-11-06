@@ -29,6 +29,14 @@ const getLocalizedStrings = (): LocalizedStrings => {
       conferencePin: "Konferenz-ID (PIN)",
       phoneNumber: "Telefonnummer",
     };
+  } else if (/nl/.test(myLanguage)) {
+    return {
+      connectToMeeting: "Verbinden met vergadering",
+      linkToMeeting: "Link naar vergadering",
+      connectWithPhone: "Maak verbinding via de telefoon",
+      conferencePin: "Conferentie-ID",
+      phoneNumber: "Telefoonnummer",
+    };
   } else {
     // Default to english
     return {

@@ -4,6 +4,7 @@
 
 export const defaultMeetJitsiUrl = "https://meet.jit.si/";
 export const defaultConferenceMapperUrl = "https://jitsi-api.jitsi.net/conferenceMapper";
+export const defaultFontFamily = "Arial";
 
 interface Config {
   baseUrl?: string;
@@ -16,6 +17,7 @@ interface Config {
   enableSipPhoneIntegration?: boolean;
   sipPhoneNumbersUrl?: string;
   sipConferenceMapperUrl?: string;
+  fontFamily?: string;
 }
 
 export default Config;
