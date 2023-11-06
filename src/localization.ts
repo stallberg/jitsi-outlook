@@ -33,6 +33,9 @@ const getLocalizedStrings = (): LocalizedStrings => {
     return {
       connectToMeeting: "Verbinden met vergadering",
       linkToMeeting: "Link naar vergadering",
+      connectWithPhone: "Maak verbinding via de telefoon",
+      conferencePin: "Conferentie-ID",
+      phoneNumber: "Telefoonnummer",
     };
   } else {
     // Default to english
